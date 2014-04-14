@@ -10,6 +10,7 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
+    [RequireHttps]
     public class MoviesController : Controller
     {
         private MovieDBContext db = new MovieDBContext();

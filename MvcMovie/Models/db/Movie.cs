@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
-namespace MvcMovie.Models
+namespace MvcMovie.Models.db
 {
 public class Movie
 {

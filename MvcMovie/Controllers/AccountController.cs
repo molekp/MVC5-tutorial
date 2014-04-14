@@ -13,6 +13,7 @@ using MvcMovie.Models;
 namespace MvcMovie.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         public AccountController()
