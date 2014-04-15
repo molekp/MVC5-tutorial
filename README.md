@@ -1,6 +1,6 @@
 MVC5-tutorial
 =============
-This project is based on Microsoft&trade; tutorial <a href="http://www.asp.net/mvc/tutorials/mvc-5/introduction/getting-started" >Zobacz tutaj »</a>
+This project is based on Microsoft&trade; tutorial <a href="http://www.asp.net/mvc/tutorials/mvc-5/introduction/getting-started" >See here »</a>
 It is created in MVC 5.1 with EF 6.1 (.NET 4.5)
 
 It uses 2 Database Context : one for Authentication (Users, Roles, etc), second for Application Data( Movies etc). 
