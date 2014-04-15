@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
 using MvcMovie.Models.db;
+using System.Collections;
+using MvcMovie.Helpers;
 
 namespace MvcMovie.Controllers
 {
@@ -31,6 +33,7 @@ namespace MvcMovie.Controllers
             var movies = from m in db.Movies
                          select m;
 
+            ViewBag.MovieGenries = movies.DistinctBy(x=>x.Genre).Select(x => new SelectListItem { Text = x.Genre, Value = x.Genre });
             if (!String.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(s => s.Title.Contains(searchString));
@@ -42,6 +45,17 @@ namespace MvcMovie.Controllers
             }
 
             return View(movies);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult GetTotalCount(string genre, string title)
+        {
+            var count = db.Movies.Count(x=> 
+                (String.IsNullOrEmpty(title) || x.Title.Contains(title)) &&
+                (String.IsNullOrEmpty(genre) || x.Genre.Contains(genre))
+            );
+            return Json(new { totalCount = count }, JsonRequestBehavior.AllowGet);
         }
 
         /*

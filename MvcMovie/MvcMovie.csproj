@@ -169,6 +169,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
+    <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Migrations\ApplicationDbContextMigrations\201404151759146_Initial.cs" />
     <Compile Include="Migrations\ApplicationDbContextMigrations\201404151759146_Initial.Designer.cs">
       <DependentUpon>201404151759146_Initial.cs</DependentUpon>
@@ -292,6 +293,12 @@
     <EmbeddedResource Include="Migrations\MovieDbContextMigrations\201404151746456_DataAnnotations.resx">
       <DependentUpon>201404151746456_DataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{f097fb49-081b-438e-b4af-53425228ffd7}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

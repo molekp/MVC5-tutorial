@@ -3,14 +3,41 @@
 @{
     ViewBag.Title = "Index";
 }
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dataObject = {
+                'genre': $('#filterGenre').val(),
+                'title': $('#filterTitle').val()
+            };
+
+            $.ajax({
+                url: '/Movies/GetTotalCount',
+                type: 'GET',
+                cache: false,
+                dataType: "json",
+                data: dataObject,
+                success: function (result) {
+                    if (typeof result !== 'undefined' && result != null) {
+                        $("#countRecords").text(result.totalCount);
+                        $("#summary").css("visibility", "visible");
+                    } else {
+                        $("#summary").css("visibility", "hidden");
+                    }
+                },
+            });
+        });
+    </script>    
+}
 <h2>Index</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create").If(User.IsInRole("Admin") || User.IsInRole("CanEdit"))
     @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
     {
     <p>
-        Genre: @Html.DropDownList("movieGenre", "All")
-        Title: @Html.TextBox("SearchString")
+        @Resources.movieGenre: @Html.DropDownList("movieGenre", (IEnumerable<SelectListItem>)ViewBag.MovieGenries, "All", new { @id = "filterGenre" })
+        @Resources.movieTitle: @Html.TextBox("SearchString", "", new { @id = "filterTitle" })
         <input type="submit" value="Filter" />
     </p>
     }
@@ -55,11 +82,18 @@
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit")) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit"))
+            @Html.ActionLink(@Resources.edit, "Edit", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit")) 
+            @Html.ActionLink(@Resources.details, "Details", new { id = item.ID }) 
+            @Html.ActionLink(@Resources.delete, "Delete", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit"))
         </td>
     </tr>
 }
-
+    <tr id="summary" style="visibility: hidden;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Count:</td>
+        <td id="countRecords"></td>
+    </tr>
 </table>
