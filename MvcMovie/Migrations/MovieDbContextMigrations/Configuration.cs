@@ -1,19 +1,20 @@
-namespace MvcMovie.Migrations
+namespace MvcMovie.Migrations.MovieDbContextMigrations
 {
-    using MvcMovie.Models;
+    using MvcMovie.Models.db;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MvcMovie.Models.MovieDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MvcMovie.Models.db.MovieDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Migrations\MovieDbContextMigrations";
         }
 
-        protected override void Seed(MvcMovie.Models.MovieDBContext context)
+        protected override void Seed(MvcMovie.Models.db.MovieDbContext context)
         {
             context.Movies.AddOrUpdate(i => i.Title,
                 new Movie
@@ -52,8 +53,6 @@ namespace MvcMovie.Migrations
                    Price = 3.99M
                }
            );
-
         }
-
     }
 }

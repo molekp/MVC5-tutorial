@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MvcMovie.Models.Movie>
+﻿@model IEnumerable<MvcMovie.Models.db.Movie>
+@using MvcMovie.Helpers
 @{
     ViewBag.Title = "Index";
 }
@@ -54,9 +55,9 @@
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit")) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }).If(User.IsInRole("Admin") || User.IsInRole("CanEdit"))
         </td>
     </tr>
 }

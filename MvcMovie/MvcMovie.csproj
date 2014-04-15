@@ -52,19 +52,24 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin">
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -162,6 +167,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Helpers\HtmlHelper.cs" />
+    <Compile Include="Migrations\ApplicationDbContextMigrations\201404151759146_Initial.cs" />
+    <Compile Include="Migrations\ApplicationDbContextMigrations\201404151759146_Initial.Designer.cs">
+      <DependentUpon>201404151759146_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationDbContextMigrations\Configuration.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -169,27 +181,28 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309280158276_Initial.cs" />
-    <Compile Include="Migrations\201309280158276_Initial.Designer.cs">
-      <DependentUpon>201309280158276_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151742234_Initial.cs" />
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151742234_Initial.Designer.cs">
+      <DependentUpon>201404151742234_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309280212154_Rating.cs" />
-    <Compile Include="Migrations\201309280212154_Rating.Designer.cs">
-      <DependentUpon>201309280212154_Rating.cs</DependentUpon>
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151745406_Rating.cs" />
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151745406_Rating.Designer.cs">
+      <DependentUpon>201404151745406_Rating.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309302013486_DataAnnotations.cs" />
-    <Compile Include="Migrations\201309302013486_DataAnnotations.Designer.cs">
-      <DependentUpon>201309302013486_DataAnnotations.cs</DependentUpon>
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151746456_DataAnnotations.cs" />
+    <Compile Include="Migrations\MovieDbContextMigrations\201404151746456_DataAnnotations.Designer.cs">
+      <DependentUpon>201404151746456_DataAnnotations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\MovieDbContextMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\db\ApplicationDbContext.cs" />
-    <Compile Include="Models\db\ApplicationRole.cs" />
-    <Compile Include="Models\db\IdentityModels.cs" />
+    <Compile Include="Models\db\IdentityManager.cs" />
     <Compile Include="Models\db\Movie.cs" />
+    <Compile Include="Models\db\MovieDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -261,19 +274,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201309280158276_Initial.resx">
-      <DependentUpon>201309280158276_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ApplicationDbContextMigrations\201404151759146_Initial.resx">
+      <DependentUpon>201404151759146_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309280212154_Rating.resx">
-      <DependentUpon>201309280212154_Rating.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\MovieDbContextMigrations\201404151742234_Initial.resx">
+      <DependentUpon>201404151742234_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309302013486_DataAnnotations.resx">
-      <DependentUpon>201309302013486_DataAnnotations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\MovieDbContextMigrations\201404151745406_Rating.resx">
+      <DependentUpon>201404151745406_Rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\MovieDbContextMigrations\201404151746456_DataAnnotations.resx">
+      <DependentUpon>201404151746456_DataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

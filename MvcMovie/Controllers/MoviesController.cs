@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using MvcMovie.Models.db;
 
 namespace MvcMovie.Controllers
 {
     [RequireHttps]
     public class MoviesController : Controller
     {
-        private MovieDBContext db = new MovieDBContext();
+        private MovieDbContext db = new MovieDbContext();
 
         // GET: /Movies/
         public ActionResult Index(string movieGenre, string searchString)
@@ -52,21 +53,22 @@ db.SaveChanges();        // <= Will throw server side validation exception
          * */
 
         // GET: /Movies/Details/5
-public ActionResult Details(int? id)
-{
-    if (id == null)
-    {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    }
-    Movie movie = db.Movies.Find(id);
-    if (movie == null)
-    {
-        return HttpNotFound();
-    }
-    return View(movie);
-}
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
         // GET: /Movies/Create
+        [Authorize(Roles="Admin,CanEdit")]
         public ActionResult Create()
         {
             return View(new Movie
@@ -85,79 +87,84 @@ public ActionResult Create()
 }
 
  */
-// POST: /Movies/Create
-// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
-{
-    if (ModelState.IsValid)
-    {
-        db.Movies.Add(movie);
-        db.SaveChanges();
-        return RedirectToAction("Index");
-    }
+        // POST: /Movies/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,CanEdit")]
+        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Movies.Add(movie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-    return View(movie);
-}
+            return View(movie);
+        }
 
-// GET: /Movies/Edit/5
-public ActionResult Edit(int? id)
-{
-    if (id == null)
-    {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    }
-    Movie movie = db.Movies.Find(id);
-    if (movie == null)
-    {
-        return HttpNotFound();
-    }
-    return View(movie);
-}
+        // GET: /Movies/Edit/5
+        [Authorize(Roles = "Admin,CanEdit")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
-// POST: /Movies/Edit/5
-// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
-{
-    if (ModelState.IsValid)
-    {
-        db.Entry(movie).State = EntityState.Modified;
-        db.SaveChanges();
-        return RedirectToAction("Index");
-    }
-    return View(movie);
-}
+        // POST: /Movies/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,CanEdit")]
+        public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(movie).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(movie);
+        }
 
-// GET: /Movies/Delete/5
-public ActionResult Delete(int? id)
-{
-    if (id == null)
-    {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    }
-    Movie movie = db.Movies.Find(id);
-    if (movie == null)
-    {
-        return HttpNotFound();
-    }
-    return View(movie);
-}
+        // GET: /Movies/Delete/5
+        [Authorize(Roles = "Admin,CanEdit")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
-// POST: /Movies/Delete/5
-[HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-public ActionResult DeleteConfirmed(int id)
-{
-    Movie movie = db.Movies.Find(id);
-    db.Movies.Remove(movie);
-    db.SaveChanges();
-    return RedirectToAction("Index");
-}
+        // POST: /Movies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,CanEdit")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Movie movie = db.Movies.Find(id);
+            db.Movies.Remove(movie);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

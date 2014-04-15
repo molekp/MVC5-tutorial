@@ -1,4 +1,4 @@
-namespace MvcMovie.Migrations
+namespace MvcMovie.Migrations.MovieDbContextMigrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -12,10 +12,10 @@ namespace MvcMovie.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        Title = c.String(maxLength: 60),
                         ReleaseDate = c.DateTime(nullable: false),
-                        Genre = c.String(),
-                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Genre = c.String(nullable: false, maxLength: 30),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),    
                     })
                 .PrimaryKey(t => t.ID);
             

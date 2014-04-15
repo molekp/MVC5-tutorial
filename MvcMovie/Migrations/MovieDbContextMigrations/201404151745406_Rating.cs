@@ -1,4 +1,4 @@
-namespace MvcMovie.Migrations
+namespace MvcMovie.Migrations.MovieDbContextMigrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -9,7 +9,7 @@ namespace MvcMovie.Migrations
         {
             AddColumn("dbo.Movies", "Rating", c => c.String());
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.Movies", "Rating");

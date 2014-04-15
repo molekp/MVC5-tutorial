@@ -1,4 +1,4 @@
-namespace MvcMovie.Migrations
+namespace MvcMovie.Migrations.MovieDbContextMigrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -11,7 +11,7 @@ namespace MvcMovie.Migrations
             AlterColumn("dbo.Movies", "Genre", c => c.String(nullable: false, maxLength: 30));
             AlterColumn("dbo.Movies", "Rating", c => c.String(maxLength: 5));
         }
-        
+
         public override void Down()
         {
             AlterColumn("dbo.Movies", "Rating", c => c.String());
