@@ -8,12 +8,14 @@ Both have migrations, and set Datatabase Initialization to latest migration(crea
 
 
 
-Project have useful examples of :
--Authentication (standard, by Google, facebooc etc)
--Authorization by roles (Controlers, Actions, render view parts if user is in role)
--Razor Html extension method
--Linq extension method
--EF in use
--Database migrations
--localizable Resources and show how to use them in MVC
--Ajax example
+
+<ul><b>Project have useful examples of :</b>
+<li>Authentication (standard, by Google, facebooc etc)</li>
+<li>Authorization by roles (Controlers, Actions, render view parts if user is in role)</li>
+<li>Razor Html extension method</li>
+<li>Linq extension method</li>
+<li>EF in use</li>
+<li>Database migrations</li>
+<li>localizable Resources and show how to use them in MVC</li>
+<li>Ajax example</li>
+</ul>
